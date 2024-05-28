@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ButtonUi : MonoBehaviour
+public class ButtonUI : MonoBehaviour
 {
     [SerializeField] private string NewGameLevel = "LV_1";
     public void NewGameButton()
