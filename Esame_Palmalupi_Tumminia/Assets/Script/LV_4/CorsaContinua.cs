@@ -7,7 +7,8 @@ public class CorsaContinua : MonoBehaviour
     Rigidbody rb;
     public float speed;
     Vector3 player;
-    float check;
+    public float jump;
+    public float jumpNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,27 +18,30 @@ public class CorsaContinua : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player.z += speed;
-        transform.position = player;
+        rb.AddForce(Vector3.forward * speed);
 
-        check = player.x;
 
         if (Input.GetKey("d"))
         {
-            player.x += speed;
+            rb.AddForce(Vector3.right * speed);
         }
 
         if (Input.GetKey("a"))
         {
-            player.x += -speed;
+            rb.AddForce(Vector3.left * speed);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && jumpNum >= 1)
+        {
+            rb.AddForce(new Vector3(0.0f, jump, 0.0f), ForceMode.Impulse);
+            jumpNum = jumpNum - 1f;
         }
     }
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Ground")
         {
-            player.x = check;
+            jumpNum = 2;
         }
     }
 }
